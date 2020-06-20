@@ -14,11 +14,7 @@ function App() {
     <main>
 
       <DisplayVideos/>
-      <DisplayVideos/>
-      <DisplayVideos/>
-      <DisplayVideos/>
-      <DisplayVideos/>
-
+      
     </main>
 
     <Footer/>
