@@ -1,0 +1,29 @@
+a {
+  color: rgb(229,229,229);
+  font-size: medium;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: rgb(229,229,229);
+  text-decoration: none;
+  color: rgb(179, 179, 179);
+}
+
+#mainHeader {
+  background-color: rgb(20,20,20);
+  height: 68px;
+  z-index: 3;
+  top: 0;
+}
+
+#logoDiv {
+  margin-left: 50px;
+  margin-right: 25px;
+  
+}
+
+#logo {
+  height: 38px;
+  margin: auto 0
+}
