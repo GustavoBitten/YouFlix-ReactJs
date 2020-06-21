@@ -7,5 +7,10 @@
     margin-left:50px ;
     padding-top: 10px;
   }
+
+  .DisplayVideos .carousel-control-prev{
+    display: none;
+
+  }
   
   
