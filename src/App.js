@@ -13,7 +13,9 @@ function App() {
 
     <main>
 
-      <DisplayVideos/>
+      <DisplayVideos title="Populares"/>
+      <DisplayVideos title="Meus favoritos"/>
+      <DisplayVideos title="Sugestões para você"/>
      
     </main>
 
