@@ -57,8 +57,13 @@ app.get('/main-videos', async (req,res)=>{
     const result = await page.$$eval('ytd-rich-item-renderer', box=>{
         return box.map(row =>{
             var content = {}
-            const title = row.querySelector('h3>a')
-            content.title = title ? title.innerText : 'Without img src'                 
+            const titleAndUrl = row.querySelector('h3>a')
+            content.title = titleAndUrl ? titleAndUrl.innerText : 'Without img src'
+            
+            urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
+            
+            content.fullUrlVideo = "https://www.youtube.com" + urlVideo 
+
             const thumbnail = row.querySelector('img')
             content.thumbnail = thumbnail ? thumbnail.getAttribute('src') : 'Without img src'
             return content
