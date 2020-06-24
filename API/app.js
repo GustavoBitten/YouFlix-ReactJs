@@ -125,8 +125,46 @@ app.get('/fast-main-videos', async (req,res)=>{
 
 })
 
+app.get('/search', async (req,res)=>{
+
+    const {name} = req.query
+
+    const browser = await puppeteer.launch({
+        headless:false,
+        defaultViewport:null
+        
+    });
+    const page = await browser.newPage();
+    await page.goto(`https://www.youtube.com/results?search_query=${name}`);
+    
+    const result = await page.$$eval('.ytd-item-section-renderer', box=>{
+        return box.map(row =>{
+            var content = {}
+            const titleAndUrl = row.querySelector('h3>a')
+            content.title = titleAndUrl ? titleAndUrl.getAttribute('title') : 'Without title'
+            
+            urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
+            
+            content.fullUrlVideo = "https://www.youtube.com" + urlVideo 
+
+            const thumbnail = row.querySelector('img')
+            content.thumbnail = thumbnail ? thumbnail.getAttribute('src') : 'Without img src'
+            return content
+            
+        })
+    })
+
+    const filterResult = result.filter(video =>{
+        return video.thumbnail != null && video.title != 'Without title'
+    })
+    filterResult.shift()
+
+    await res.json(filterResult)
 
 
+
+
+})      
 
 
 
