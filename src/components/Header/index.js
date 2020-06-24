@@ -1,18 +1,25 @@
 import React from 'react';
-import './style.css';
+import {Form} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faGift } from '@fortawesome/free-solid-svg-icons';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import './style.css';
+import $ from 'jquery';
 
 export default function Header() {
   
-  
-  
-  
-  
-  
+  function hideAndShowSearchInput() {
+      $("#searchNav").show(1000);
+      $("#searchDiv").css("border-style", "solid");
+      $("input").focus();
+  }
+
+  $("input").focusout(function adsffsdsfd(){
+    $("#searchNav").hide(1000);
+    $("#searchDiv").css("border-style", "none");
+  })
   
   return (
     <header id="mainHeader" className="w-100 position-fixed d-flex">
@@ -27,9 +34,14 @@ export default function Header() {
         <a href="/" className="p-2">Minha lista</a>
       </div>
       <div id="headerButtonDiv" className="d-flex align-items-center justify-content-center">
-        <button className="d-flex align-items-center justify-content-center p-3">
-          <FontAwesomeIcon icon={ faSearch } className="icon"/>
-        </button>
+        <div id="searchDiv" className="align-items-center justify-content-center">
+          <button id="searchIcon" onClick={hideAndShowSearchInput} className="d-flex align-items-center justify-content-center">
+            <FontAwesomeIcon icon={ faSearch } className="icon"/>
+          </button>
+          <Form.Group id="searchNav" className="align-items-center justify-content-center pr-3">
+            <Form.Control type="text" placeholder="Vídeos, canais e música"/>
+          </Form.Group>
+        </div>
         <button className="d-flex align-items-center justify-content-center p-3">
           <FontAwesomeIcon icon={ faGift } className="icon"/>
         </button>

@@ -38,14 +38,55 @@ a:hover {
   font-size: 20px;
 }
 
-button {
+button{
   background: none;
-  border: none;
-  outline: none;
-  overflow: hidden;
+  border-style: none;
+}
 
-}
-button:active {
+button:focus{
   outline: none;
-  overflow: hidden;
 }
+
+.form-group {
+  margin:0;
+}
+
+#searchDiv {
+  border-style: none;
+  border-color: white;
+  border-width: 1px;
+}
+
+#searchNav {
+  display: none;
+}
+
+#searchDiv {
+  display: flex;
+}
+
+#searchNav input {
+  background-color: rgb(20,20,20);
+  border:0 ;
+}
+
+.form-control:focus{
+  box-shadow: none;
+  outline: none!important;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
