@@ -32,9 +32,10 @@ app.get('/main-videos', async (req,res)=>{
         
         const title = $(elem).find('h3>a').text()
         const urlVideo = $(elem).find('h3>a').attr('href')
+        const fullUrlVideo = "https://www.youtube.com" + urlVideo
         const thumbnail = $(elem).find('img').attr('src')
 
-        const video = new Video({title,urlVideo,thumbnail})
+        const video = new Video({title,urlVideo: fullUrlVideo ,thumbnail})
         return listMainVideos.push(video)
     })
     
