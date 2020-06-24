@@ -27,6 +27,7 @@ app.get('/main-videos', async (req,res)=>{
         }
     }
     
+
     
     $('*').find('.yt-lockup-dismissable').each(function(i,elem) {
         
@@ -39,7 +40,13 @@ app.get('/main-videos', async (req,res)=>{
         return listMainVideos.push(video)
     })
     
-    return res.json(listMainVideos)
+
+    if(listMainVideos != ''){
+        return res.json(listMainVideos)
+
+    }else{
+        return res.status(500).json({mensage: 'Please try again'})
+    }
 
 
 
