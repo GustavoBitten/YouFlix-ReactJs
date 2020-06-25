@@ -11,18 +11,20 @@ import $ from 'jquery';
 export default function Header() {
   const [ open, setOpen ] = useState(false)
   
-  useEffect(()=>{
   //$('body').ready(()=>{
-
-    (async function () {
+    console.log()
+    
+    useEffect(()=>{
       
-       await $('#searchIcon').mousedown(function(){
+        $('#searchIcon').click(function(){
          if (!open) {
           // console.log(open)
          $("#searchNav").show(1000);
           $("#searchDiv").css("border-style", "solid");
           $('input').focus()
           setOpen(true);
+
+          
         }
         
     });
@@ -31,16 +33,20 @@ export default function Header() {
 
     
      $("input").focusout(function(){
+
+      setTimeout(function(){
+
         if (open) {
           console.log(open)
           $("#searchNav").hide(1000);
           $("#searchDiv").css("border-style", "none");
           setOpen(false);
         }
-      })
+      },150)
+    })
       
       
-    })()
+    
       
     })
     //})
