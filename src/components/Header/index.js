@@ -10,23 +10,41 @@ import $ from 'jquery';
 
 export default function Header() {
   const [ open, setOpen ] = useState(false)
-
-  useEffect(() => {
-    if (!open) {
-      $('#searchDiv').click(function(){
-          $("#searchNav").show(1000);
-          $("#searchDiv").css("border-style", "solid");
-          //$("input").focus();
-          setOpen(true);
-      })
-    }
   
-    $("input").focusout(function(){
-      $("#searchNav").hide(1000);
-      $("#searchDiv").css("border-style", "none");
-      setOpen(false);
+  useEffect(()=>{
+  //$('body').ready(()=>{
+
+    (async function () {
+      
+       await $('#searchIcon').mousedown(function(){
+         if (!open) {
+          // console.log(open)
+         $("#searchNav").show(1000);
+          $("#searchDiv").css("border-style", "solid");
+          $('input').focus()
+          setOpen(true);
+        }
+        
+    });
+    
+    
+
+    
+     $("input").focusout(function(){
+        if (open) {
+          console.log(open)
+          $("#searchNav").hide(1000);
+          $("#searchDiv").css("border-style", "none");
+          setOpen(false);
+        }
+      })
+      
+      
+    })()
+      
     })
-  });
+    //})
+
   
   return (
     <header id="mainHeader" className="w-100 position-fixed d-flex">
@@ -42,7 +60,7 @@ export default function Header() {
       </div>
       <div id="headerButtonDiv" className="d-flex align-items-center justify-content-center">
         <div id="searchDiv" className="align-items-center justify-content-center">
-          <button id="searchIcon" className="d-flex align-items-center justify-content-center">
+          <button id="searchIcon" disabled={open} className="d-flex align-items-center justify-content-center">
             <FontAwesomeIcon icon={ faSearch } className="icon"/>
           </button>
           <Form.Group id="searchNav" className="align-items-center justify-content-center pr-3">
