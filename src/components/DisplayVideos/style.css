@@ -1,16 +1,18 @@
 .thumbnail{
-    width: 19%;
+    width: 19%!important;
     padding: 3px;
     position: relative;
     
 
   }
 
-  .thumbnail a {
-    width: 19%;
+  .thumbnail img {
+    width: 100%!important;
     
 
   }
+
+  
 
 
 
