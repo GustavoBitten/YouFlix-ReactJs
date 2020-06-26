@@ -118,17 +118,26 @@ app.get('/fast-main-videos', async (req, res) => {
         const fullUrlVideo = "https://www.youtube.com" + urlVideo
         const thumbnail = $(elem).find('img').attr('src')
 
+        const [thumbhd] = thumbnail.split('?')
+
         const video = new Video({
             title,
             urlVideo: fullUrlVideo,
-            thumbnail
+            thumbnail: thumbhd
         })
         return listMainVideos.push(video)
     })
 
+    const filterListMainVideos = listMainVideos.filter(video =>{
+        return video.thumbnail !=  "/yts/img/pixel-vfl3z5WfW.gif"
+    })
+
+    console.log(htmlGoogle.status)
+
+    
 
     if (listMainVideos != '') {
-        return res.json(listMainVideos)
+     return res.json(filterListMainVideos)
 
     } else {
         return res.status(500).json({

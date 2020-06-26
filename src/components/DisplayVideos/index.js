@@ -20,7 +20,7 @@ export default function DisplayVideos({title}){
     
     function getMainVideos(){
 
-        axios.get('http://localhost:3333/main-videos').then((response)=>{
+        axios.get('http://localhost:3333/fast-main-videos').then((response)=>{
             
             setMainVideos(response.data)
         })
@@ -41,7 +41,7 @@ export default function DisplayVideos({title}){
                     <div className="d-flex justify-content-center">
 
                         {mainVideos.slice(0,5).map((video) => {
-                            return (<a key={video.title} className="thumbnail" href={video.fullUrlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                            return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
                         })}
 
                     </div>
@@ -51,7 +51,7 @@ export default function DisplayVideos({title}){
                     <div className="d-flex justify-content-center">
 
                     {mainVideos.slice(5,10).map((video) => {
-                            return (<a key={video.title} className="thumbnail" href={video.fullUrlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                            return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
                         })}
 
                     </div>
