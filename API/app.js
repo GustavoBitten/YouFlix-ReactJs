@@ -6,12 +6,13 @@ import express, {
 import axios from 'axios'
 import cherrio from 'cheerio'
 import fs from 'fs'
+import cors from 'cors'
 const puppeteer = require('puppeteer');
 //import html from './googleHtml.html'
 
-
 const app = express()
 
+app.use(cors())
 app.use(json())
 
 
@@ -64,7 +65,7 @@ app.get('/main-videos', async (req, res) => {
             const titleAndUrl = row.querySelector('h3>a')
             content.title = titleAndUrl ? titleAndUrl.innerText : 'Without img src'
 
-            urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
+            const urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
 
             content.fullUrlVideo = "https://www.youtube.com" + urlVideo
 
@@ -162,7 +163,7 @@ app.get('/search', async (req, res) => {
             const titleAndUrl = row.querySelector('h3>a')
             content.title = titleAndUrl ? titleAndUrl.getAttribute('title') : 'Without title'
 
-            urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
+            const urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
 
             content.fullUrlVideo = "https://www.youtube.com" + urlVideo
 

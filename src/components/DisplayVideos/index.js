@@ -1,13 +1,17 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Carousel} from 'react-bootstrap';
+import axios from 'axios';
 import './style.css'
-import $ from 'jquery'
+//import $ from 'jquery'
 
 
 
 export default function DisplayVideos({title}){
     const [index, setIndex] = useState(0);
-    const [startDisplay,setStartDisplay] = useState(false)
+    const [mainVideos, setMainVideos] = useState([]);
+    const [ countVideos, setCountVideos ] = useState(0);
+    const [ startDisplay,setStartDisplay ] = useState(false);
+
 
     const handleSelect = (selectedIndex, e) => {
        
@@ -15,9 +19,17 @@ export default function DisplayVideos({title}){
       setIndex(selectedIndex);
     };
     
-    // $(document).ready(function(){
-    //     $('.DisplayVideos a').removeAttr('href')
-    //   });
+    function getMainVideos(){
+
+        axios.get('http://localhost:3333/main-videos').then((response)=>{
+            
+            setMainVideos(response.data)
+        })
+        
+    }
+    console.log(mainVideos)
+
+    useEffect(getMainVideos,[])
     
     
 
@@ -29,21 +41,13 @@ export default function DisplayVideos({title}){
                 <Carousel.Item>                    
                     <div className="d-flex justify-content-center">
 
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
+                        {mainVideos.map((video) => {
+                            // while (countVideos < 5){
+                                // setCountVideos(countVideos + 1);
+                                return (<a key={video.title} className="thumbnail" href={video.fullUrlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                            // }
+                        })}
+
                     </div>
 
                 </Carousel.Item>
@@ -77,15 +81,7 @@ export default function DisplayVideos({title}){
                         <img className="thumbnail"
                             src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
                             alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
-                        <img className="thumbnail"
-                            src="https://occ-0-2583-1740.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABS5XD8WnlJ7hYI5lfLZLxShKuXURNXUH8UiOEvmseV5PAoLDwFngfSeKuoo6xEHb1LLRlRUUjFIZqkP3tndGWacKz5wsL9vQTi56hm1jkMS_k1SApBBUVaeDAcjNPOqMWjNjSTG-abcl1dK0ZWrQWgzyF4LZh8OiIOiMK0I1OKzP-DyFLsyIzETWaUMngnYfeDNEzE9QIM1lQuMQ5cXSoCO1.jpg?r=482"
-                            alt="" />
+                        
                     </div>
 
                 </Carousel.Item>
