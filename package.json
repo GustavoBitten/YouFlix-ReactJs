@@ -26,8 +26,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "api": "nodemon --exec sucrase-node ./API/app.js"
+    "api": "nodemon --exec  sucrase-node ./API/app.js"
   },
+
+  "nodemonConfig": {
+    "ignore": ["API/cache/*.json"]
+  },
+
   "eslintConfig": {
     "extends": "react-app"
   },

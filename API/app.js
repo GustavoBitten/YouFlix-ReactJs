@@ -3,12 +3,15 @@ import express, {
     request,
     response
 } from 'express'
+import cors from 'cors'
 import axios from 'axios'
 import cherrio from 'cheerio'
-import fs from 'fs'
-import cors from 'cors'
 const puppeteer = require('puppeteer');
-//import html from './googleHtml.html'
+import fs from 'fs'
+import path from 'path'
+
+import getYtMainVideosFast from './util/getYtMainVideosFast'
+
 
 const app = express()
 
@@ -90,61 +93,21 @@ app.get('/main-videos', async (req, res) => {
 
 app.get('/fast-main-videos', async (req, res) => {
 
+    //fs.writeFileSync(path.resolve(__dirname,'.cache/mainVideos.json','teste')
+    const urlCacheMainVideos = path.resolve(__dirname,'./cache/mainVideos.json')
+    const filterListMainVideosBuffer = fs.readFileSync(urlCacheMainVideos)
+    const filterListMainVideos =JSON.parse(filterListMainVideosBuffer)
 
-    const htmlGoogle = await axios.get('https://www.youtube.com')
-    const $ = cherrio.load(htmlGoogle.data)
-
-    const listMainVideos = []
-
-    class Video {
-
-        constructor({
-            title,
-            urlVideo,
-            thumbnail
-        }) {
-            this.title = title
-            this.urlVideo = urlVideo
-            this.thumbnail = thumbnail
-        }
+    res.json(filterListMainVideos)
+    
+    const newsMainVideos = await getYtMainVideosFast()
+    console.log(newsMainVideos)
+    
+    if(newsMainVideos.length != 0 ){
+        return fs.writeFileSync(urlCacheMainVideos,JSON.stringify(newsMainVideos))
     }
 
-
-
-    $('*').find('.yt-lockup-dismissable').each(function (i, elem) {
-
-        const title = $(elem).find('h3>a').text()
-        const urlVideo = $(elem).find('h3>a').attr('href')
-        const fullUrlVideo = "https://www.youtube.com" + urlVideo
-        const thumbnail = $(elem).find('img').attr('src')
-
-        const [thumbhd] = thumbnail.split('?')
-
-        const video = new Video({
-            title,
-            urlVideo: fullUrlVideo,
-            thumbnail: thumbhd
-        })
-        return listMainVideos.push(video)
-    })
-
-    const filterListMainVideos = listMainVideos.filter(video =>{
-        return video.thumbnail !=  "/yts/img/pixel-vfl3z5WfW.gif"
-    })
-
-    console.log(htmlGoogle.status)
-
-
-
-    if (listMainVideos != '') {
-     return res.json(filterListMainVideos)
-
-    } else {
-        return res.status(500).json({
-            mensage: 'Please try again'
-        })
-    }
-
+    return 
 
 
 })
@@ -167,6 +130,7 @@ app.get('/search', async (req, res) => {
     await page.waitFor(1000)
 
     const result = await page.$$eval('.ytd-item-section-renderer', box => {
+
         return box.map(row => {
             var content = {}
             const titleAndUrl = row.querySelector('h3>a')
