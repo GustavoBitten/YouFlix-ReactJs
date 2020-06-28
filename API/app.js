@@ -6,12 +6,13 @@ import express, {
 import axios from 'axios'
 import cherrio from 'cheerio'
 import fs from 'fs'
+import cors from 'cors'
 const puppeteer = require('puppeteer');
 //import html from './googleHtml.html'
 
-
 const app = express()
 
+app.use(cors())
 app.use(json())
 
 
@@ -64,7 +65,7 @@ app.get('/main-videos', async (req, res) => {
             const titleAndUrl = row.querySelector('h3>a')
             content.title = titleAndUrl ? titleAndUrl.innerText : 'Without img src'
 
-            urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
+            const urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
 
             content.fullUrlVideo = "https://www.youtube.com" + urlVideo
 
@@ -117,17 +118,26 @@ app.get('/fast-main-videos', async (req, res) => {
         const fullUrlVideo = "https://www.youtube.com" + urlVideo
         const thumbnail = $(elem).find('img').attr('src')
 
+        const [thumbhd] = thumbnail.split('?')
+
         const video = new Video({
             title,
             urlVideo: fullUrlVideo,
-            thumbnail
+            thumbnail: thumbhd
         })
         return listMainVideos.push(video)
     })
 
+    const filterListMainVideos = listMainVideos.filter(video =>{
+        return video.thumbnail !=  "/yts/img/pixel-vfl3z5WfW.gif"
+    })
+
+    console.log(htmlGoogle.status)
+
+
 
     if (listMainVideos != '') {
-        return res.json(listMainVideos)
+     return res.json(filterListMainVideos)
 
     } else {
         return res.status(500).json({
@@ -162,7 +172,7 @@ app.get('/search', async (req, res) => {
             const titleAndUrl = row.querySelector('h3>a')
             content.title = titleAndUrl ? titleAndUrl.getAttribute('title') : 'Without title'
 
-            urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
+            const urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
 
             content.fullUrlVideo = "https://www.youtube.com" + urlVideo
 
@@ -210,7 +220,7 @@ app.get('/fast-search', async (req, res) => {
         }
     }
 
-    
+
 
     $('*').find('.yt-lockup-video').each(function (i, elem) {
 

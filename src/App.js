@@ -15,8 +15,8 @@ function App() {
     <main>
 
       <DisplayVideos title="Populares"/>
-      <DisplayVideos title="Meus favoritos"/>
-      <DisplayVideos title="Sugestões para você"/>
+      {/* <DisplayVideos title="Meus favoritos"/>
+      <DisplayVideos title="Sugestões para você"/> */}
      
     </main>
 
