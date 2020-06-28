@@ -1,10 +1,10 @@
-a {
+#mainHeader a {
   color: rgb(229,229,229);
   font-size: 15px;
   transition: 0.3s;
 }
 
-a:hover {
+#mainHeader a:hover {
   color: rgb(229,229,229);
   text-decoration: none;
   color: rgb(179, 179, 179);
@@ -20,7 +20,7 @@ a:hover {
 #logoDiv {
   margin-left: 3.7%;
   margin-right: 25px;
-  
+
 }
 
 #logo {
@@ -38,12 +38,12 @@ a:hover {
   font-size: 20px;
 }
 
-button{
+#mainHeader button{
   background: none;
   border-style: none;
 }
 
-button:focus{
+#mainHeader button:focus{
   outline: none;
 }
 
