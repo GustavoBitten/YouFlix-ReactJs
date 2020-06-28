@@ -5,7 +5,6 @@ import './style.css'
 //import $ from 'jquery'
 
 
-
 export default function DisplayVideos({title}){
     const [index, setIndex] = useState(0);
     const [mainVideos, setMainVideos] = useState([]);
@@ -13,31 +12,31 @@ export default function DisplayVideos({title}){
 
 
     const handleSelect = (selectedIndex, e) => {
-       
-       
+
+
       setIndex(selectedIndex);
     };
-    
+
     function getMainVideos(){
 
         axios.get('http://localhost:3333/fast-main-videos').then((response)=>{
-            
+
             setMainVideos(response.data)
         })
-        
+
     }
     console.log(mainVideos)
 
     useEffect(getMainVideos,[])
-    
-    
+
+
 
     return (
         <div className="DisplayVideos">
             <h4 className="p-2 pl-5">{title}</h4>
 
             <Carousel activeIndex={index} onSelect={handleSelect} interval='999999'>
-                <Carousel.Item>                    
+                <Carousel.Item>
                     <div className="d-flex justify-content-center">
 
                         {mainVideos.slice(0,5).map((video) => {
@@ -47,7 +46,7 @@ export default function DisplayVideos({title}){
                     </div>
 
                 </Carousel.Item>
-                <Carousel.Item>                    
+                <Carousel.Item>
                     <div className="d-flex justify-content-center">
 
                     {mainVideos.slice(5,10).map((video) => {

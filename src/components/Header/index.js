@@ -10,18 +10,18 @@ import $ from 'jquery';
 
 export default function Header() {
   const [ open, setOpen ] = useState(false)
-    
+
     useEffect(()=>{
-      
+
       $('#searchIcon').click(function(){
         if (!open) {
-        $("#searchNav").show(1000);
-        $("#searchDiv").css("border-style", "solid");
-        $('input').focus()
-        setOpen(true);
+          $("#searchNav").show(1000);
+          $("#searchDiv").css("border-style", "solid");
+          $('input').focus()
+          setOpen(true);
         }
       });
-      
+
       $("input").focusout(function(){
         setTimeout(function(){
           if (open) {
@@ -33,7 +33,7 @@ export default function Header() {
         },150)
       })
     })
-  
+
   return (
     <header id="mainHeader" className="w-100 position-fixed d-flex">
       <div id="logoDiv" className="d-flex">
