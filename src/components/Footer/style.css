@@ -1,30 +1,31 @@
 #mainFooter {
-  color: white;
-  width: 100%;
-  height: 40%;
-  display: flex;
-  bottom: -68px;
+  max-width: 980px;
+  margin: 0 auto;
+  margin-top: 80px;
 }
 
+#mainFooter * {
+  color: grey;
+}
 .iconFooter {
-  color: white;
-  font-size: 45px;
+  font-size: 30px;
+  box-sizing: content-box;
 }
 
 #mainFooter p {
-  font-size: 15px;
-  color: white;
-
-
-
-}
-.pFooter {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  width: 25%;
+  font-size: 13px;
 }
 
-.pFooter p{
-  margin: 0;
+.service-code{
+  background-color: transparent;
+  border: 1px solid grey;
+  font-size: 13px;
+  padding: 5.8px 6.5px
+}
+
+.copyright{
+  font-size: 11px;
+  padding: 19px 0px 10px;
 }
 
