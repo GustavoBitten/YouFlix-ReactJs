@@ -9,14 +9,20 @@ import DisplayVideos from './components/DisplayVideos';
 
 function App() {
   const [youtubeVideos, setYoutubeVideos] = useState([])
+  const [ requestStatus, setRequestStatus] = useState(false)
 
   function getYoutubeVideos() {
-    axios.get(`https://www.googleapis.com/youtube/v3/videos?chart=mostPopular&maxResults=30&&key=${process.env.REACT_APP_API_KEY}&part=snippet`).then((response) => {
-      setYoutubeVideos(response.data.items)
-    })
+    if (!requestStatus) {
+      axios.get(`https://www.googleapis.com/youtube/v3/videos?chart=mostPopular&maxResults=40&&key=${process.env.REACT_APP_API_KEY}&part=snippet`).then((response) => {
+        setYoutubeVideos(response.data.items)
+      })
+    }
+    setRequestStatus(true)
   }
 
   useEffect(getYoutubeVideos,[])
+
+  console.log(youtubeVideos)
 
   return (<>
     <Header/>

@@ -34,21 +34,43 @@ export default function DisplayVideos({ title, videoList, startOfVideos, endOfVi
 
             <Carousel activeIndex={index} onSelect={handleSelect} interval='999999'>
                 <Carousel.Item>
-                    <div className="d-flex justify-content-center">
+                  <div className="d-flex justify-content-center">
 
-                      {videoList.slice(startOfVideos, endOfVideos ).map((video) => {
-                        return (<a key={video.snippet.localized.title} className="thumbnail" href={`https://youtube.com/watch?v=${video.id}`}><img src={video.snippet.thumbnails.maxres.url} alt={video.snippet.localized.title} /></a>)
-                      })}
+                  {videoList.slice(startOfVideos , endOfVideos ).map((video) => {
+                      //console.log(video.snippet.thumbnails.maxres.url)
+                      return (
+                      <a
+                      key={video.snippet.localized.title}
+                      className="thumbnail"
+                      href={`https://youtube.com/watch?v=${video.id}`}
+                      >
+                      <img
+                      src={(video.snippet.thumbnails.maxres !== undefined) ? video.snippet.thumbnails.maxres.url : video.snippet.thumbnails.standard.url }
+                      alt={video.snippet.localized.title}
+                      />
+                      </a>)
+                    })}
 
-                    </div>
+                  </div>
 
                 </Carousel.Item>
                 <Carousel.Item>
                   <div className="d-flex justify-content-center">
 
-                  {videoList.slice( startOfVideos + 5, endOfVideos + 5 ).map((video) => {
-                    return (<a key={video.snippet.localized.title} className="thumbnail" href={`https://youtube.com/id=${video.id}`}><img src={video.snippet.thumbnails.maxres} alt={video.snippet.localized.title} /></a>)
-                  })}
+                    {videoList.slice((startOfVideos + 5 ), (endOfVideos + 5 ) ).map((video) => {
+                      //console.log(video.snippet.thumbnails.maxres.url)
+                      return (
+                      <a
+                      key={video.snippet.localized.title}
+                      className="thumbnail"
+                      href={`https://youtube.com/watch?v=${video.id}`}
+                      >
+                      <img
+                      src={(video.snippet.thumbnails.maxres !== undefined) ? video.snippet.thumbnails.maxres.url : video.snippet.thumbnails.standard.url }
+                      alt={video.snippet.localized.title}
+                      />
+                      </a>)
+                    })}
 
                   </div>
 
