@@ -10,7 +10,8 @@ const puppeteer = require('puppeteer');
 import fs from 'fs'
 import path from 'path'
 
-import getYtMainVideosFast from './util/getYtMainVideosFast'
+import getMainVideosFast from './util/getMainVideosFast'
+import getMainVideos from './util/getMainVideos'
 
 
 const app = express()
@@ -46,49 +47,12 @@ async function autoScroll(page) {
 
 app.get('/main-videos', async (req, res) => {
 
-    const browser = await puppeteer.launch({
-        //headless:false,
-        defaultViewport: null
+    const filterResult = await getMainVideos()
 
-    });
-    const page = await browser.newPage();
-    await page.goto('https://www.youtube.com');
-    //await page.screenshot({path: 'hnw.png',fullPage: 'true'});
-    //await page.content;
-    await page.waitFor(1000)
-    await autoScroll(page)
-    await page.waitFor(1000)
-
-
-    await page.waitFor('ytd-rich-item-renderer')
-
-    const result = await page.$$eval('ytd-rich-item-renderer', box => {
-        return box.map(row => {
-            var content = {}
-            const titleAndUrl = row.querySelector('h3>a')
-            content.title = titleAndUrl ? titleAndUrl.innerText : 'Without img src'
-
-            const urlVideo = titleAndUrl ? titleAndUrl.getAttribute('href') : 'Without img src'
-
-            content.fullUrlVideo = "https://www.youtube.com" + urlVideo
-
-            const thumbnail = row.querySelector('img')
-            content.thumbnail = thumbnail ? thumbnail.getAttribute('src') : 'Without img src'
-            return content
-
-        })
-    })
-
-    const filterResult = result.filter(video => {
-        return video.thumbnail != null
-    })
-
-    await res.json(filterResult)
+    
+    res.json(filterResult)
 
 })
-
-
-
 
 
 app.get('/fast-main-videos', async (req, res) => {
@@ -100,8 +64,7 @@ app.get('/fast-main-videos', async (req, res) => {
 
     res.json(filterListMainVideos)
     
-    const newsMainVideos = await getYtMainVideosFast()
-    console.log(newsMainVideos)
+    const newsMainVideos = await getMainVideosFast()
     
     if(newsMainVideos.length != 0 ){
         return fs.writeFileSync(urlCacheMainVideos,JSON.stringify(newsMainVideos))
