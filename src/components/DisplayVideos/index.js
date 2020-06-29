@@ -5,10 +5,10 @@ import './style.css'
 //import $ from 'jquery'
 
 
-export default function DisplayVideos({title}){
+export default function DisplayVideos({ title, videoList, startOfVideos, endOfVideos  }){
     const [index, setIndex] = useState(0);
-    const [mainVideos, setMainVideos] = useState([]);
     const [ startDisplay,setStartDisplay ] = useState(false);
+    // const [mainVideos, setMainVideos] = useState([]);
 
 
     const handleSelect = (selectedIndex, e) => {
@@ -17,19 +17,16 @@ export default function DisplayVideos({title}){
       setIndex(selectedIndex);
     };
 
-    function getMainVideos(){
+    // function getMainVideos(){
 
-        axios.get('http://localhost:3333/fast-main-videos').then((response)=>{
+    //     axios.get('http://localhost:3333/fast-main-videos').then((response)=>{
 
-            setMainVideos(response.data)
-        })
+    //         setMainVideos(response.data)
+    //     })
 
-    }
-    console.log(mainVideos)
+    // }
 
-    useEffect(getMainVideos,[])
-
-
+    // useEffect(getMainVideos,[])
 
     return (
         <div className="DisplayVideos">
@@ -39,21 +36,21 @@ export default function DisplayVideos({title}){
                 <Carousel.Item>
                     <div className="d-flex justify-content-center">
 
-                        {mainVideos.slice(0,5).map((video) => {
-                            return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
-                        })}
+                      {videoList.slice(startOfVideos, endOfVideos ).map((video) => {
+                        return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                      })}
 
                     </div>
 
                 </Carousel.Item>
                 <Carousel.Item>
-                    <div className="d-flex justify-content-center">
+                  <div className="d-flex justify-content-center">
 
-                    {mainVideos.slice(5,10).map((video) => {
-                            return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
-                        })}
+                  {videoList.slice( startOfVideos + 5, endOfVideos + 5 ).map((video) => {
+                    return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                  })}
 
-                    </div>
+                  </div>
 
                 </Carousel.Item>
             </Carousel>
