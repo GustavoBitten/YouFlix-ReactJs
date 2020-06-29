@@ -28,7 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "api": "nodemon --exec  sucrase-node ./API/app.js"
+    "api": "nodemon --exec  sucrase-node ./API/app.js",
+    "super":"concurrently \"yarn start \"  \"yarn api\" "
   },
   "nodemonConfig": {
     "ignore": [
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
