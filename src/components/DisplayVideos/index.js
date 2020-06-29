@@ -37,7 +37,7 @@ export default function DisplayVideos({ title, videoList, startOfVideos, endOfVi
                     <div className="d-flex justify-content-center">
 
                       {videoList.slice(startOfVideos, endOfVideos ).map((video) => {
-                        return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                        return (<a key={video.snippet.localized.title} className="thumbnail" href={`https://youtube.com/watch?v=${video.id}`}><img src={video.snippet.thumbnails.maxres.url} alt={video.snippet.localized.title} /></a>)
                       })}
 
                     </div>
@@ -47,7 +47,7 @@ export default function DisplayVideos({ title, videoList, startOfVideos, endOfVi
                   <div className="d-flex justify-content-center">
 
                   {videoList.slice( startOfVideos + 5, endOfVideos + 5 ).map((video) => {
-                    return (<a key={video.title} className="thumbnail" href={video.urlVideo} ><img   src={video.thumbnail} alt={video.title} /></a>)
+                    return (<a key={video.snippet.localized.title} className="thumbnail" href={`https://youtube.com/id=${video.id}`}><img src={video.snippet.thumbnails.maxres} alt={video.snippet.localized.title} /></a>)
                   })}
 
                   </div>

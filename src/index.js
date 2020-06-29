@@ -10,6 +10,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'jquery/dist/jquery.min.js';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
