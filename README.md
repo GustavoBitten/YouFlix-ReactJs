@@ -15,6 +15,9 @@
 
 * 💻 Watch videos in youtube   
 
+# 🖼️ Preview
+
+<img src="/assets/preview1.png"/>
 
 # :cyclone: Technologies and libraries
 
